@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Bespoke architectural design, restoration consultations, and urban planning. Raw, unconventional structural brilliance by Keystone Gilded.">
+	<title>Keystone Gilded | Architectural Design & Consulting</title>
+	<link rel="icon" href="favicon.ico">
+	<style>
+		/* Global Brutalist Styles */
+		:root {
+			--primary-color: #eb9c13;
+			--primary-dark-color: #a56d0d;
+			--primary-light-color: #ebc179;
+			--secondary-color: #bcd22c;
+			--accent-color: #2a72ed;
+			--dark-color: #1a1a1a;
+			--light-color: #f4f4f4;
+			--card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			--border-radius-lg: 20px;
+			--hover-translate-y: -12px;
+			--section-padding-vertical: 5rem; /* Generous padding for sections */
+		}
+
+		body {
+			font-family: 'Nunito', sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: var(--light-color);
+			color: var(--dark-color);
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			font-family: 'Nunito', sans-serif;
+			font-weight: 700;
+			color: var(--dark-color);
+			margin-top: 0;
+			margin-bottom: 1rem;
+		}
+
+		a {
+			color: var(--accent-color);
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 1.5rem;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 0.8rem 1.8rem;
+			font-size: 1rem;
+			font-weight: 700;
+			text-align: center;
+			text-decoration: none;
+			border-radius: var(--border-radius-lg);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			border: none;
+		}
+
+		.btn-primary {
+			background-color: var(--primary-color);
+			color: var(--dark-color);
+		}
+
+		.btn-primary:hover {
+			background-color: var(--primary-dark-color);
+			color: var(--light-color);
+			transform: var(--hover-transform);
+		}
+
+		/* Utility classes */
+		.text-center {
+			text-align: center;
+		}
+
+		.py-section {
+			padding: var(--section-padding-vertical) 0;
+		}
+
+		.hover-translateY-large {
+			transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+		}
+
+		.hover-translateY-large:hover {
+			transform: translateY(var(--hover-translate-y));
+			box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+		}
+
+		.card {
+			background-color: #ffffff;
+			border-radius: var(--border-radius-lg);
+			box-shadow: var(--card-shadow);
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.icon-circle {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			width: 64px;
+			height: 64px;
+			background-color: var(--primary-light-color);
+			border-radius: 50%;
+			margin-bottom: 1rem;
+		}
+
+		.icon-circle svg {
+			fill: var(--dark-color);
+			width: 32px;
+			height: 32px;
+		}
+		
+		/* Brutalist Specific Styles */
+		/* Navbar - Fixed top, minimal */
+		.header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: var(--light-color);
+			z-index: 1000;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+
+		.nav-content {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 1.5rem;
+			max-width: 1200px; /* Aligns with container */
+			margin: 0 auto;
+		}
+
+		.brand {
+			font-family: monospace; /* Brutalist mix */
+			font-weight: 700;
+			font-size: 1.5rem;
+			color: var(--dark-color);
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		.hamburger-menu {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			width: 30px;
+			height: 25px;
+			cursor: pointer;
+			padding: 5px;
+		}
+
+		.hamburger-menu .line {
+			width: 100%;
+			height: 3px;
+			background-color: var(--dark-color);
+		}
+
+		/* Navigation Overlay (for hamburger menu) */
+		.nav-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(26, 26, 26, 0.95); /* Dark overlay */
+			display: none; /* Hidden by default */
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			z-index: 999;
+			opacity: 0;
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.nav-overlay.visible {
+			display: flex;
+			opacity: 1;
+		}
+
+		.nav-overlay-close {
+			position: absolute;
+			top: 2rem;
+			right: 2rem;
+			font-size: 2.5rem;
+			color: var(--light-color);
+			cursor: pointer;
+			transition: transform 0.2s ease;
+		}
+
+		.nav-overlay-close:hover {
+			transform: rotate(90deg);
+		}
+
+		.nav-overlay ul {
+			list-style: none;
+			padding: 0;
+			text-align: center;
+		}
+
+		.nav-overlay ul li {
+			margin: 1.5rem 0;
+		}
+
+		.nav-overlay ul li a {
+			color: var(--light-color);
+			font-size: 2rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			transition: color 0.2s ease;
+		}
+
+		.nav-overlay ul li a:hover {
+			color: var(--primary-color);
+			text-decoration: none;
+		}
+
+		/* Hero Section */
+		.hero {
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			overflow: hidden;
+			color: var(--light-color);
+			min-height: 100vh;
+			padding-top: 80px; /* Account for fixed header */
+		}
+
+		.hero-background-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(rgba(26, 26, 26, 0.7), rgba(0, 0, 0, 0.9)), url('images/hero-bg-overlay.jpeg') no-repeat center center/cover;
+			z-index: -1;
+			/* FIXME: consider extracting to component */
+			filter: grayscale(80%) contrast(120%); 
+		}
+
+		.hero-content {
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			padding: 2rem 1.5rem;
+			max-width: 1200px;
+			margin: 0 auto;
+			z-index: 1;
+		}
+
+		.hero-left-image {
+			display: block;
+			max-width: 100%;
+			height: auto;
+			margin-bottom: 2rem;
+			border: 4px solid var(--primary-color);
+			box-shadow: 8px 8px 0px var(--primary-dark-color);
+		}
+
+		.hero h1 {
+			font-size: clamp(2.5rem, 8vw, 4.5rem);
+			color: var(--light-color);
+			margin-bottom: 1rem;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			line-height: 1;
+		}
+
+		.hero p {
+			font-size: clamp(1rem, 4vw, 1.4rem);
+			color: var(--light-color);
+			margin-bottom: 2.5rem;
+			max-width: 600px;
+		}
+
+		@media (min-width: 768px) {
+			.hero-content {
+				flex-direction: row;
+				text-align: start;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.hero-text-block {
+				flex: 1;
+				padding-right: 3rem;
+			}
+			.hero-left-image {
+				flex: 1;
+				max-width: 45%;
+				margin-bottom: 0;
+			}
+			.hero h1 {
+				font-size: clamp(3rem, 6vw, 5.5rem);
+			}
+			.hero p {
+				font-size: clamp(1.1rem, 2vw, 1.5rem);
+			}
+		}
+
+		/* About Section */
+		.about {
+			background-color: var(--dark-color);
+			color: var(--light-color);
+		}
+
+		.about-content {
+			display: flex;
+			flex-direction: column;
+			gap: 3rem;
+		}
+
+		.about H2 {
+			font-size: clamp(2rem, 5vw, 4rem);
+			color: var(--primary-color);
+			margin-bottom: 1.5rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			line-height: 1.1;
+		}
+
+		.about p {
+			font-family: monospace; /* Brutalist mix */
+			font-size: clamp(1rem, 2.5vw, 1.3rem);
+			line-height: 1.8;
+			letter-spacing: 0.5px;
+		}
+
+		@media (min-width: 768px) {
+			.about-content {
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.about-text-block {
+				flex: 1;
+				padding-right: 3rem;
+			}
+			.about-text-block:nth-child(even) {
+				padding-left: 3rem;
+				padding-right: 0;
+			}
+		}
+
+		/* Services Section */
+		.services {
+			background-color: var(--light-color);
+		}
+
+		.services-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.services-grid h3 {
+			font-size: 1.5rem;
+			margin-bottom: 0.8rem;
+			color: var(--dark-color);
+		}
+
+		.services-grid p {
+			font-size: 1rem;
+			color: #555;
+		}
+
+		.service-card {
+			text-align: center;
+			padding: 2rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.service-card img {
+			width: 100%;
+			height: 250px; /* Fixed height for consistency */
+			object-fit: cover;
+			border-radius: var(--border-radius-lg);
+			margin-bottom: 1rem;
+			filter: grayscale(50%); /* Subtle Brutalist effect */
+			transition: filter 0.3s ease;
+		}
+		
+		.service-card:hover img {
+			filter: grayscale(0%);
+		}
+
+		.service-card .icon-circle {
+			background-color: var(--secondary-color);
+			color: var(--dark-color);
+			margin: 0 auto 1rem;
+			transition: transform 0.3s ease;
+		}
+
+		.service-card:hover .icon-circle {
+			transform: scale(1.1);
+		}
+
+		@media (min-width: 768px) {
+			.services-grid {
+				grid-template-columns: 2fr 1fr; /* Bento pattern 2-1-1 */
+				grid-template-rows: repeat(2, minmax(280px, 1fr));
+			}
+
+			.service-card-large {
+				grid-column: 1 / 2;
+				grid-row: 1 / 3;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: left;
+			}
+
+			.service-card-large img {
+				height: 100%; /* Fill available height */
+				object-position: center;
+			}
+
+			.service-card-small {
+				grid-column: 2 / 3;
+			}
+		}
+
+		/* Testimonials Section */
+		.testimonials {
+			background-color: var(--dark-color);
+			color: var(--light-color);
+			overflow: hidden; /* For carousel */
+			position: relative;
+		}
+
+		.testimonials h2 {
+			color: var(--primary-color);
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-size: clamp(2rem, 5vw, 3rem);
+			margin-bottom: 3rem;
+		}
+
+		.testimonial-carousel {
+			display: flex;
+			overflow-x: auto; /* Enable horizontal scrolling */
+			scroll-snap-type: x mandatory;
+			-webkit-overflow-scrolling: touch;
+			padding-bottom: 1.5rem; /* Space for scrollbar */
+		}
+
+		.testimonial-card {
+			flex: 0 0 90%; /* Occupy 90% of screen on mobile */
+			scroll-snap-align: center;
+			background-color: #ffffff;
+			color: var(--dark-color);
+			padding: 2rem;
+			border-radius: var(--border-radius-lg);
+			box-shadow: var(--card-shadow);
+			margin: 0 1rem;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-width: 300px; /* Minimum width for card */
+		}
+
+		.testimonial-card img {
+			width: 96px;
+			height: 96px;
+			border-radius: 50%;
+			object-fit: cover;
+			margin-bottom: 1rem;
+			border: 3px solid var(--primary-color);
+		}
+
+		.testimonial-card blockquote {
+			font-style: italic;
+			margin: 0 0 1rem;
+			font-size: 1.1rem;
+			line-height: 1.7;
+			color: #333;
+		}
+
+		.testimonial-card cite {
+			font-weight: 700;
+			font-size: 1rem;
+			color: var(--dark-color);
+		}
+
+		@media (min-width: 768px) {
+			.testimonial-carousel {
+				justify-content: center; /* Center items on larger screens if fewer cards */
+			}
+			.testimonial-card {
+				flex: 0 0 calc(50% - 2rem); /* Two cards per row */
+				max-width: calc(50% - 2rem);
+			}
+		}
+
+		@media (min-width: 992px) {
+			.testimonial-card {
+				flex: 0 0 calc(33.333% - 2rem); /* Three cards per row */
+				max-width: calc(33.333% - 2rem);
+			}
+		}
+
+		/* Contact Section */
+		.contact {
+			background-color: var(--light-color);
+			padding-bottom: 80px; /* Specific request for contact section */
+		}
+
+		.contact h2 {
+			color: var(--dark-color);
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			font-size: clamp(2rem, 5vw, 3.5rem);
+			margin-bottom: 3rem;
+		}
+
+		.contact-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.contact-item {
+			background-color: #ffffff;
+			border-radius: var(--border-radius-lg);
+			box-shadow: var(--card-shadow);
+			padding: 2rem;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.contact-item:hover {
+			transform: translateY(var(--hover-translate-y));
+			box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+		}
+
+		.contact-item .icon-circle {
+			background-color: var(--primary-light-color);
+			margin: 0 auto 1.5rem;
+		}
+
+		 .contact-item h3 {
+			font-size: 1.3rem;
+			color: var(--primary-dark-color);
+			margin-bottom: 0.8rem;
+			text-transform: uppercase;
+		 }
+
+		.contact-item p {
+			font-family: monospace; /* Brutalist mix for contact details */
+			font-size: 1.1rem;
+			margin-bottom: 1rem;
+			color: #333;
+		}
+
+		.contact-item .btn {
+			margin-top: 1rem;
+		}
+
+		@media (min-width: 768px) {
+			.contact-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		@media (min-width: 992px) {
+			.contact-grid {
+				grid-template-columns: repeat(3, 1fr);
+			}
+		}
+
+		/* Footer */
+		.footer {
+			background-color: var(--dark-color); /* Dark background for footer */
+			color: var(--light-color); /* Light text for contrast */
+			text-align: center;
+			padding: 2rem 1.5rem;
+			font-size: 0.9rem;
+		}
+
+		.footer p {
+			margin: 0;
+			font-family: monospace;
+			letter-spacing: 0.5px;
+		}
+		
+		.footer a {
+			color: var(--primary-color);
+			margin: 0 0.5rem;
+		}
+
+		.footer a:hover {
+			color: var(--primary-light-color);
+		}
+
+		/* Cookie Consent Banner */
+		.cookie-consent-banner {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			background-color: rgba(26, 26, 26, 0.9);
+			color: var(--light-color);
+			padding: 1rem 1.5rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 1001;
+			transform: translateY(100%);
+			transition: transform 0.5s ease-out;
+		}
+
+		.cookie-consent-banner.show {
+			transform: translateY(0);
+		}
+
+		.cookie-consent-banner p {
+			margin: 0 1rem 0.5rem 0;
+			font-size: 0.9rem;
+			text-align: center;
+		}
+
+		.cookie-consent-banner button {
+			padding: 0.6rem 1.5rem;
+			border-radius: 5px;
+			border: none;
+			background-color: var(--primary-color);
+			color: var(--dark-color);
+			cursor: pointer;
+			font-weight: 700;
+			transition: background-color 0.2s ease;
+		}
+
+		.cookie-consent-banner button:hover {
+			background-color: var(--primary-dark-color);
+			color: var(--light-color);
+		}
+
+		@media (min-width: 768px) {
+			.cookie-consent-banner {
+				flex-direction: row;
+				padding: 1rem 2rem;
+			}
+			.cookie-consent-banner p {
+				margin-bottom: 0;
+				margin-right: 1rem;
+				text-align: left;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header class="header">
+		<div class="nav-content">
+			<a href="#hero" class="brand">Keystone Gilded</a>
+			<div class="hamburger-menu" id="hamburgerMenu">
+				<div class="line"></div>
+				<div class="line"></div>
+				<div class="line"></div>
+			</div>
+		</div>
+		<div class="nav-overlay" id="navOverlay">
+			<span class="nav-overlay-close" id="navOverlayClose">&times;</span>
+			<ul>
+				<li><a href="#hero">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#testimonials">Testimonials</a></li>
+				<li><a href="#contact">Contact</a></li>
+				<li><a href="./privacy.html">Privacy Policy</a></li>
+				<li><a href="./tos.html">Terms of Service</a></li>
+			</ul>
+		</div>
+	</header>
+<main>
+<style>
+  #keystone-gilded-terms-and-conditions {
+    padding-top: 7rem;
+  }
+</style>
+<section id="keystone-gilded-terms-and-conditions">
+    <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 2rem;">Terms and Conditions for Keystone Gilded</h2>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Welcome to Keystone Gilded. These Terms and Conditions ("Terms") govern your use of our website and services provided by Keystone Gilded. By accessing or using our online platform, you agree to comply with and be bound by these Terms.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">1. Acceptance of Terms</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">By accessing and using this website, you acknowledge that you have read, understood, and agree to be bound by these Terms, as well as our Privacy Policy. If you do not agree with any part of these Terms, you must not use our services or website.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">2. Services Provided</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Keystone Gilded offers comprehensive architectural design and consulting services, including:</p>
+    <ul style="font-size: 1rem; list-style: disc; margin-left: 2rem; margin-bottom: 1.5rem;">
+        <li style="margin-bottom: 0.5rem;">Bespoke architectural design</li>
+        <li style="margin-bottom: 0.5rem;">Restoration consultations for historical properties</li>
+        <li style="margin-bottom: 0.5rem;">Historical property assessments</li>
+        <li style="margin-bottom: 0.5rem;">Urban planning expertise</li>
+        <li style="margin-bottom: 0.5rem;">Sustainable design solutions</li>
+        <li style="margin-bottom: 0.5rem;">Interior architecture services</li>
+    </ul>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Our online platform serves as a portfolio showcase and a medium for client engagement.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">3. Intellectual Property</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">All content on this website, including designs, text, graphics, logos, images, and software, is the property of Keystone Gilded or its content suppliers and is protected by intellectual property laws. Unauthorized use of any materials on this site is strictly prohibited.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">4. Use of Our Website</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">You agree to use our website only for lawful purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the website. Prohibited behavior includes harassing or causing distress or inconvenience to any other user, transmitting obscene or offensive content, or disrupting the normal flow of dialogue within our site.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">5. Client Engagement and Consultation</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Our website provides information about our services and a means to contact us for consultation. Any professional advice or services offered by Keystone Gilded will be subject to a separate, formal agreement between Keystone Gilded and the client, detailing the scope of work, fees, and other terms pertinent to the project.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">6. Disclaimer of Warranties</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">This website and its content are provided "as is" without any representations or warranties, express or implied. Keystone Gilded makes no representations or warranties in relation to this website or the information and materials provided on this website. While we strive to keep the information up-to-date and correct, we make no guarantees of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">7. Limitation of Liability</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Keystone Gilded will not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use our online platform; (ii) any conduct or content of any third party on our service; (iii) any content obtained from our service; and (iv) unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">8. Indemnification</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">You agree to indemnify, defend, and hold harmless Keystone Gilded, its officers, directors, employees, agents, and third parties, for any losses, costs, liabilities, and expenses (including reasonable attorneys' fees) relating to or arising out of your use of or inability to use our site or services, any user postings made by you, your violation of any terms of this Agreement or your violation of any rights of a third party, or your violation of any applicable laws, rules, or regulations. Keystone Gilded reserves the right, at its own cost, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, in which event you will fully cooperate with Keystone Gilded in asserting any available defenses.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">9. Governing Law</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">These Terms shall be governed and construed in accordance with the laws of the State of New York, United States, without regard to its conflict of law provisions.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">10. Changes to Terms</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem;">11. Contact Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">If you have any questions about these Terms, please contact us at:</p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem;">Keystone Gilded</p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem;">125 Apollo Street,</p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem;">New York, New York, 11222,</p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem;">USA</p>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem;">Phone: +19839244569</p>
+</section>
+</main>
+<footer class="footer">
+		<div class="container">
+			<p>© 2024 Keystone Gilded. All architectural and consulting rights reserved. Language: English.</p>
+			<p><a href="./privacy.html">Privacy Policy</a> | <a href="./tos.html">Terms of Service</a></p>
+		</div>
+	</footer>
+
+	<div class="cookie-consent-banner" id="cookieConsentBanner">
+		<p>We use cookies to ensure you get the best experience on our website. By using our site, you agree to our <a href="./privacy.html">Privacy Policy</a>.</p>
+		<button id="acceptCookies">Accept</button>
+	</div>
+
+	<script>
+		// Hamburger menu functionality
+		const hamburgerMenu = document.getElementById('hamburgerMenu');
+		const navOverlay = document.getElementById('navOverlay');
+		const navOverlayClose = document.getElementById('navOverlayClose');
+		const navOverlayLinks = navOverlay.querySelectorAll('a');
+
+		hamburgerMenu.addEventListener('click', () => {
+			navOverlay.classList.add('visible');
+			document.body.style.overflow = 'hidden'; // Prevent scrolling
+		});
+
+		navOverlayClose.addEventListener('click', () => {
+			navOverlay.classList.remove('visible');
+			document.body.style.overflow = ''; // Re-enable scrolling
+		});
+
+		navOverlayLinks.forEach(link => {
+			link.addEventListener('click', () => {
+				navOverlay.classList.remove('visible');
+				document.body.style.overflow = '';
+			});
+		});
+
+		// Cookie consent functionality
+		const consentBanner = document.getElementById('cookieConsentBanner');
+		const acceptButton = document.getElementById('acceptCookies');
+		const cookieName = 'consent_Keystone Gilded_cookies_accepted'; // Randomly generated prefix
+
+		function setCookie(name, value, days) {
+			let expires = "";
+			if (days) {
+				const date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				expires = "; expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+		}
+
+		function getCookie(name) {
+			const nameEQ = name + "=";
+			const ca = document.cookie.split(';');
+			for(let i = 0; i < ca.length; i++) {
+				let c = ca[i];
+				while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+			}
+			return null;
+		}
+
+		if (!getCookie(cookieName)) {
+			// Small delay to ensure banner appears after page load
+			setTimeout(() => {
+				consentBanner.classList.add('show');
+			}, 1000);
+		}
+
+		acceptButton.addEventListener('click', () => {
+			setCookie(cookieName, 'true', 30); // Cookie lasts 30 days
+			consentBanner.classList.remove('show');
+		});
+
+		// Smooth scrolling for anchor links
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+				// Magic number, but it looks right
+			});
+		});
+	</script>
+</body>
+</html>
